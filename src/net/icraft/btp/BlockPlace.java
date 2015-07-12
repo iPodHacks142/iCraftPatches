@@ -23,6 +23,19 @@ public class BlockPlace
     Player player = event.getPlayer();
     Block block = event.getBlock();
     int i = block.getTypeId();
+    World world1 = block.getWorld();
+    
+    int yA = block.getY();
+    int xA = block.getX();
+    int zA = block.getZ();
+    Block a1 = world1.getBlockAt(xA, yA - 1, zA);
+    Block a2 = world1.getBlockAt(xA, yA - 2, zA);
+    
+    if ((a1.getTypeId() == 1567) || (a2.getTypeId() == 1567)){
+    	event.setCancelled(true);
+        player.sendMessage(ChatColor.GOLD + "[iCraftPatches] " + ChatColor.RED + "There must be at least a two block space above Koa Chests!");
+    }
+    
     if (i == 7)
     {
       int y = block.getY();
@@ -114,11 +127,6 @@ public class BlockPlace
       int z = block.getZ();
       World world = block.getWorld();
       
-      Block c1 = world.getBlockAt(x + 1, y, z);
-      Block c2 = world.getBlockAt(x - 1, y, z);
-      Block c3 = world.getBlockAt(x, y, z + 1);
-      Block c4 = world.getBlockAt(x, y, z - 1);
-      Block c5 = world.getBlockAt(x, y + 1, z);
       Block c6 = world.getBlockAt(x, y - 1, z);
       if (c6.getTypeId() == 1281)
       {
@@ -135,12 +143,7 @@ public class BlockPlace
       int z = block.getZ();
       World world = block.getWorld();
       
-      Block c1 = world.getBlockAt(x + 1, y, z);
-      Block c2 = world.getBlockAt(x - 1, y, z);
-      Block c3 = world.getBlockAt(x, y, z + 1);
-      Block c4 = world.getBlockAt(x, y, z - 1);
       Block c5 = world.getBlockAt(x, y + 1, z);
-      Block c6 = world.getBlockAt(x, y - 1, z);
       if (c5.getTypeId() == 1971)
       {
         event.setCancelled(true);
@@ -149,6 +152,24 @@ public class BlockPlace
         player.sendMessage(ChatColor.GOLD + "[iCraftPatches] " + ChatColor.RED + "You can't place this below portable tanks!");
       }
     }
+    if (i == 1567)
+    {
+      int y = block.getY();
+      int x = block.getX();
+      int z = block.getZ();
+      World world = block.getWorld();
+      
+      Block c5 = world.getBlockAt(x, y + 1, z);
+      Block c6 = world.getBlockAt(x, y + 2, z);
+      if ((c5.getTypeId() != 0) || (c6.getTypeId() != 0))
+      {
+        event.setCancelled(true);
+        player.sendMessage(ChatColor.GOLD + "[iCraftPatches] " + ChatColor.RED + "There must be at least a two block space above Koa Chests!");
+      }
+    }
+    
+    
+    
     if ((main.nearclaim.contains(block.getTypeId() + ":" + block.getData())) || (main.nearclaim.contains(block.getTypeId() + ":*")))
     {
       int y = block.getY();
