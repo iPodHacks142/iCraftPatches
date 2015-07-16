@@ -2,8 +2,10 @@ package net.icraft.btp;
 
 import java.util.List;
 import java.util.logging.Logger;
+
 import org.bukkit.Server;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,6 +23,8 @@ public final class main
   public static List<String> confc;
   public static List<String> sync;
   public static List<String> guns;
+  
+  public ChatListener playerListener;
   
   public void onDisable()
   {
@@ -63,5 +67,6 @@ public final class main
     
     getServer().getPluginManager().registerEvents(new BlockPlace(), this);
     getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
+    getServer().getPluginManager().registerEvents((Listener) new ChatListener(), this);
   }
 }
